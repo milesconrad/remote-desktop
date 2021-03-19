@@ -27,8 +27,8 @@ while True:
             downButtons.append(data)
             mouse.press(data)
         else:
-            mouse.release(data)
             downButtons.remove(data)
+            mouse.release(data)
             
     elif isinstance(data, int):
         mouse.scroll(0, data)
@@ -38,7 +38,7 @@ while True:
             downKeys.append(data)
             keyboard.press(data)
         else:
-            keyboard.release(data)
             downKeys.remove(data)
+            keyboard.release(data)
 
 client.close()
