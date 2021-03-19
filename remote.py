@@ -25,9 +25,9 @@ while True:
     elif isinstance(data, Button):
         if data not in downButtons:
             downButtons.append(data)
-            keyboard.press(data)
+            mouse.press(data)
         else:
-            keyboard.release(data)
+            mouse.release(data)
             downButtons.remove(data)
             
     elif isinstance(data, int):
