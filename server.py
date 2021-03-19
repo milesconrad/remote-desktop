@@ -14,7 +14,6 @@ def on_move(x, y):
     conn.recv(1024)
     position = dumps([x, y])
     conn.send(position)
-    mouse.Controller().position = (0, 0 )
 
 def on_click(x, y, button, pressed):
     conn.recv(1024)
