@@ -3,12 +3,8 @@ from pynput import mouse, keyboard
 import p2py
 
 node = p2py.P2P_Node(600)
-def new_connection(node, conn, request):
-    print(conn)
-node.add_handler('connected', new_connection)
 msg = {'type' : 'event'}
 node.start()
-print('Listening...')
 
 def on_move(x, y):
     position = dumps([x, y])

@@ -44,4 +44,3 @@ node.start()
 node.join_network((('67.149.113.14', 600)))
 while not node.connections:
 	sleep(0.01) 
-print('Connected!')
