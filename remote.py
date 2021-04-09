@@ -10,7 +10,7 @@ from pynput.keyboard._win32 import KeyCode
 
 downKeys = []
 downButtons = []
-node = p2py.Node(4445)
+node = p2py.P2P_Node(601)
 
 def handler(node, conn, request):
     data = request.contents['data']
@@ -42,6 +42,6 @@ def handler(node, conn, request):
 node.add_handler('event', handler)
 node.start()
 node.join_network((('67.149.113.14', 600)))
-while not node.joined():
+while not node.connections:
 	sleep(0.01) 
 print('Connected!')
