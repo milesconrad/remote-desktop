@@ -1,35 +1,39 @@
 from pickle import dumps
-from pynput import mouse, keyboard
-import p2py
+import socket
+from pynput import mouse
+from pynput import keyboard
 
-node = p2py.P2P_Node(600)
-msg = {'type' : 'event'}
-node.start()
+server = socket.socket()
+server.bind(('192.168.0.123', 600))
+server.listen(2)
+print('Listening...')
+conn, address = server.accept()
+print('New connection from ' + address[0])
 
 def on_move(x, y):
+    conn.recv(1024)
     position = dumps([x, y])
-    msg['data'] = position
-    node.send_to_UUID(UUID=1, message=msg)
+    conn.send(position)
 
 def on_click(x, y, button, pressed):
+    conn.recv(1024)
     button = dumps(button)
-    msg['data'] = button
-    node.send_to_UUID(UUID=1, message=msg)
+    conn.send(button)
 
 def on_scroll(x, y, dx, dy):
+    conn.recv(1024)
     direction = dumps(dy)
-    msg['data'] = direction
-    node.send_to_UUID(UUID=1, message=msg)
+    conn.send(direction)
 
 def on_press(key):
+    conn.recv(1024)
     key = dumps(key)
-    msg['data'] = key
-    node.send_to_UUID(UUID=1, message=msg)
+    conn.send(key)
 
 def on_release(key):
+    conn.recv(1024)
     key = dumps(key)
-    msg['data'] = key
-    node.send_to_UUID(UUID=1, message=msg)
+    conn.send(key)
 
 mouseListener = mouse.Listener(
     on_move=on_move,
@@ -43,3 +47,4 @@ keyboardListener.start()
 
 mouseListener.join()
 keyboardListener.join()
+conn.close()

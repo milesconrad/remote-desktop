@@ -1,6 +1,5 @@
 from pickle import loads
-from time import sleep
-import p2py
+import socket
 
 from pynput.mouse import Button, Controller
 mouse = Controller()
@@ -10,10 +9,13 @@ from pynput.keyboard._win32 import KeyCode
 
 downKeys = []
 downButtons = []
-node = p2py.P2P_Node(601)
+client = socket.socket()
+client.connect(('67.149.113.14', 600))
+print('Connected!')
 
-def handler(node, conn, request):
-    data = request.contents['data']
+while True:
+    client.send('confirmed'.encode())
+    data = client.recv(1024)
     data = loads(data)
     
     if isinstance(data, list):
@@ -39,8 +41,4 @@ def handler(node, conn, request):
             downKeys.remove(data)
             keyboard.release(data)
 
-node.add_handler('event', handler)
-node.start()
-node.join_network((('67.149.113.14', 600)))
-while not node.connections:
-	sleep(0.01) 
+client.close()
