@@ -10,7 +10,7 @@ from pynput.keyboard._win32 import KeyCode
 downKeys = []
 downButtons = []
 client = socket.socket()
-client.connect(('67.149.113.14', 600))
+client.connect(('insert public IP address here', 600))
 print('Connected!')
 
 while True:
