@@ -4,7 +4,7 @@ from pynput import mouse
 from pynput import keyboard
 
 server = socket.socket()
-server.bind(('insert IP here', 600))
+server.bind(('insert local IP address here', 600))
 server.listen(2)
 print('Listening...')
 conn, address = server.accept()
