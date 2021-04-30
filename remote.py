@@ -24,6 +24,8 @@ while True:
         x, y = data
         mouse.position = (x, y)
 
+    # pynput has listeners for both mouseup and mousedown, so downButtons keeps
+    # track of which buttons are still being pressed
     elif isinstance(data, Button):
         if data not in downButtons:
             downButtons.append(data)
@@ -35,6 +37,8 @@ while True:
     elif isinstance(data, int):
         mouse.scroll(0, data)
     
+    # pynput has listeners for keyup and mousedown as well, so downKeys keeps
+    # track of which keys are still being pressed
     elif isinstance(data, Key) or isinstance(data, KeyCode):
         if data not in downKeys:
             downKeys.append(data)
