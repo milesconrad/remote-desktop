@@ -14,10 +14,12 @@ client.connect(('insert public IP address here', 600))
 print('Connected!')
 
 while True:
+    # confirm message to stay synchronized with server
     client.send('confirmed'.encode())
     data = client.recv(1024)
     data = loads(data)
     
+    # depending on the data type, control the mouse and keyboard accordingly
     if isinstance(data, list):
         x, y = data
         mouse.position = (x, y)
