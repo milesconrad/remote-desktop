@@ -10,6 +10,8 @@ print('Listening...')
 conn, address = server.accept()
 print('New connection from ' + address[0])
 
+# for each event, package the data as an object using pickle and send it
+# to the active connection to be executed
 def on_move(x, y):
     conn.recv(1024)
     position = dumps([x, y])
