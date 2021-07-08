@@ -1,3 +1,4 @@
+from time import time
 from pickle import dumps
 import socket
 from pynput import mouse
@@ -10,10 +11,15 @@ print('Listening...')
 conn, address = server.accept()
 print('New connection from ' + address[0])
 
+last_moved = time()
+
 def on_move(x, y):
-    conn.recv(1024)
-    position = dumps([x, y])
-    conn.send(position)
+    global last_moved
+    if time() - last_moved > 0.1:
+        conn.recv(1024)
+        position = dumps([x, y])
+        conn.send(position)
+        last_moved = time()
 
 def on_click(x, y, button, pressed):
     conn.recv(1024)
