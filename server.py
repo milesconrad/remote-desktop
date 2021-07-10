@@ -8,7 +8,7 @@ server = socket.socket()
 server.bind(('insert local IP address here', 600))
 server.listen(2)
 print('Listening...')
-conn, address = server.accept()
+connection, address = server.accept()
 print('New connection from ' + address[0])
 
 last_moved = time()
@@ -16,30 +16,30 @@ last_moved = time()
 def on_move(x, y):
     global last_moved
     if time() - last_moved > 0.1:
-        conn.recv(1024)
-        position = dumps([x, y])
-        conn.send(position)
+        connection.recv(1024)
+        mouse_position = dumps([x, y])
+        connection.send(mouse_position)
         last_moved = time()
 
-def on_click(x, y, button, pressed):
-    conn.recv(1024)
-    button = dumps(button)
-    conn.send(button)
+def on_click(x, y, pressed_button):
+    connection.recv(1024)
+    pressed_button = dumps(pressed_button)
+    connection.send(pressed_button)
 
-def on_scroll(x, y, dx, dy):
-    conn.recv(1024)
-    direction = dumps(dy)
-    conn.send(direction)
+def on_scroll(x, y, x_direction, y_direction):
+    connection.recv(1024)
+    y_direction = dumps(y_direction)
+    connection.send(y_direction)
 
-def on_press(key):
-    conn.recv(1024)
-    key = dumps(key)
-    conn.send(key)
+def on_press(pressed_key):
+    connection.recv(1024)
+    pressed_key = dumps(pressed_key)
+    connection.send(pressed_key)
 
-def on_release(key):
-    conn.recv(1024)
-    key = dumps(key)
-    conn.send(key)
+def on_release(released_key):
+    connection.recv(1024)
+    released_key = dumps(released_key)
+    connection.send(released_key)
 
 mouseListener = mouse.Listener(
     on_move=on_move,
@@ -53,4 +53,4 @@ keyboardListener.start()
 
 mouseListener.join()
 keyboardListener.join()
-conn.close()
+connection.close()
