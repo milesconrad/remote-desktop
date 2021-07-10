@@ -21,7 +21,7 @@ def on_move(x, y):
         connection.send(mouse_position)
         last_moved = time()
 
-def on_click(x, y, pressed_button):
+def on_click(x, y, pressed_button, pressed):
     connection.recv(1024)
     pressed_button = dumps(pressed_button)
     connection.send(pressed_button)
