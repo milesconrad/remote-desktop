@@ -14,7 +14,7 @@ print('New connection from ' + address[0])
 last_moved = time()
 
 def on_move(x, y):
-    global last_moved
+    last_moved
     if time() - last_moved > 0.1:
         connection.recv(1024)
         mouse_position = dumps([x, y])
